@@ -1,0 +1,32 @@
+{%extends "layout.html"%}
+{%block heading%}
+Book Details
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{%endblock%}
+
+{%block body%}
+<ul>
+    <li>Title:{{title}}</li>
+    <li>Author:{{author}}</li>
+    <li>Year:{{year}}</li>
+    <li>ISBN:{{book["books"][0]['isbn']}}</li>
+    <li>Review Count:{{book["books"][0]['work_ratings_count']}}</li>
+    <li>Average Score:{{book["books"][0]['average_rating']}}</li>
+</ul>
+
+<ul>
+    Comments:
+    {%for comment in comments%}
+    <li>{{comment}}</li>
+    {%endfor%}
+</ul>
+
+<form action="{{url_for('get_book_detail',isbn=book['books'][0]['isbn'])}}" method="POST">
+        <div class="form-group">
+          <input type="comment" class="form-control" id="comment" aria-describedby="commentHelp" name="comment">
+          <small id="commentHelp" class="form-text text-muted">Leave Your Comments</small>
+        </div>
+        <div><button type="submit" class="btn btn-primary">Submit</button></div>
+</form>
+{%endblock%}
+

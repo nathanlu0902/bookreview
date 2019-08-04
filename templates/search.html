@@ -1,0 +1,26 @@
+<html>
+    <head>
+        Welcome {{username}}
+        <a href="{{url_for('log_out',username=username)}}">
+            <button>Log out</button>
+        </a>
+    </head>
+    <body>
+        <form action="{{url_for('search')}}" method="POST">
+        <div>
+            <input id="kw" name="wd" placeholder="enter ISBN" autocomplete="off">
+        </div>
+        <button>Search</button>
+        <ul>
+            {%for result in results%}
+            <li>
+            <a href="{{url_for('get_book_detail',isbn=result.isbn)}}" target="_blank">ISBN:{{result.isbn}}</a>
+            Author:{{result.author}}
+            Title:{{result.title}}
+            </li>
+            {%endfor%}
+            
+        </ul>
+        
+    </body>
+</html>

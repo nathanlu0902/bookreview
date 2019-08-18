@@ -6,9 +6,8 @@ from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-app = Flask(__name__)
-app.debug=True
-# DATABASE_URL="postgres://fvidljvruvkrzp:ffb41b6e98aff605a0fe67eec67a1b902f9199e8f57d9fa2c8f50a26e4e13537@ec2-174-129-41-127.compute-1.amazonaws.com:5432/d4vutjco33gbab"
+app=Flask(__name__)
+DATABASE_URL="postgres://fvidljvruvkrzp:ffb41b6e98aff605a0fe67eec67a1b902f9199e8f57d9fa2c8f50a26e4e13537@ec2-174-129-41-127.compute-1.amazonaws.com:5432/d4vutjco33gbab"
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
@@ -31,7 +30,7 @@ def index():
 def log_in():
     print(request)
     if request.method=="POST":
-        name=request.form.get("username")
+        session["name"]=request.form.get("username")
         password=request.form.get("password")
         db.execute('''CREATE TABLE IF NOT EXISTS users(
             username VARCHAR NOT NULL,
@@ -39,10 +38,10 @@ def log_in():
             id SERIAL NOT NULL
         )''')
         db.commit()
-        db.execute("INSERT INTO users(username,password) VALUES(:username,:password)",{"username":name,"password":password})
-        print("inserted user %s"%name)
+        db.execute("INSERT INTO users(username,password) VALUES(:username,:password)",{"username":session["name"],"password":password})
+        print("inserted user %s"%session["name"])
         db.commit()
-        return render_template("search.html",username=name)
+        return render_template("search.html",username=session["name"])
     else:
         return "Please log in first"
 
@@ -75,11 +74,10 @@ def get_book_detail(isbn):
     author=res2.author
     year=res2.year
     if request.method=="POST":
-        if session.get("comments") is None:
-            session["comments"]=[]    
-        comment=request.form.get("comment")
-        session["comments"].append(comment)
+        if request.form.get("comment"):
+            session["comment"]=comment
+        if request.form.get("rating"):
+            session["rating"]=rating             
         # print("comment added")
-
-    return render_template("book.html",book=res.json(),year=year,author=author,title=title,comments=session["comments"])
+    return render_template("book.html",book=res.json(),year=year,author=author,title=title,comment=session["comment"],rating=session["rating"])
 

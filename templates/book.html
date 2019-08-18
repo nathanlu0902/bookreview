@@ -14,19 +14,38 @@ Book Details
     <li>Average Score:{{book["books"][0]['average_rating']}}</li>
 </ul>
 
-<ul>
-    Comments:
-    {%for comment in comments%}
-    <li>{{comment}}</li>
-    {%endfor%}
-</ul>
+<div>
+  <p>Your Rating:{{rating}}</p>
+  <p>{{comment}}</p>
+</div>
 
 <form action="{{url_for('get_book_detail',isbn=book['books'][0]['isbn'])}}" method="POST">
-        <div class="form-group">
-          <input type="comment" class="form-control" id="comment" aria-describedby="commentHelp" name="comment">
-          <small id="commentHelp" class="form-text text-muted">Leave Your Comments</small>
-        </div>
-        <div><button type="submit" class="btn btn-primary">Submit</button></div>
+    <p>Review:</p>
+    <div class="form-check-inline">
+      <input class="form-check-inline" id="checkbox1" type="checkbox" value="option1" name="rating">
+      <label class="form-check-label" for="form-check-inline">1</label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-inline" id="checkbox2" type="checkbox" value="option2" name="rating">
+      <label class="form-check-label" for="form-check-inline">2</label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-inline" id="checkbox3" type="checkbox" value="option3" name="rating">
+      <label class="form-check-label" for="form-check-inline">3</label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-inline" id="checkbox4" type="checkbox" value="option4" name="rating">
+      <label class="form-check-label" for="form-check-inline">4</label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-inline" id="checkbox5" type="checkbox" value="option5" name="rating">
+      <label class="form-check-label" for="form-check-inline">5</label>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" aria-describedby="commentHelp" name="comment">
+      <small id="commentHelp" class="form-text text-muted">Leave Your Comments</small>
+    </div>
+    <div><button type="submit" class="btn btn-primary">Submit</button></div>
 </form>
 {%endblock%}
 

@@ -1,16 +1,26 @@
 <html>
     <head>
+        <style>
+            .search{
+                margin:auto;
+                right:0;
+                top:0;
+                bottom:0;
+                left:0;
+            }
+        </style>
         Welcome {{username}}
+        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <a href="{{url_for('log_out',username=username)}}">
             <button>Log out</button>
         </a>
     </head>
     <body>
+        <div class="search">
         <form action="{{url_for('search')}}" method="POST">
-        <div>
-            <input id="kw" name="wd" placeholder="enter ISBN" autocomplete="off">
-        </div>
+            <input id="kw" name="wd" placeholder="enter ISBN" autocomplete="on">
         <button>Search</button>
+        </div>
         <ul>
             {%for result in results%}
             <li>

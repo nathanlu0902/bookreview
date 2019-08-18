@@ -1,12 +1,25 @@
 <html>
     <head>
+        <style>
+            .login{
+                height: 92px;
+                left: calc(50% - 272px/2);
+                position: absolute;
+                width: 272px;
+                bottom: calc(50% + 92px/2)
+            }
+            #smbutton{
+                position:relative;
+                left: calc (50%)
+            }
+
+        </style>
         <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <title>Book Review</title>
     </head>
 
     <body>
-        <h2>Log in</h2>
-        <form action="{{url_for('log_in')}}" method="post">
+        <form class="login" action="{{url_for('log_in')}}" method="post">
             <div class="form-group">
                 <label for="InputUsername">Username</label>
                 <div class="col-sm-10">
@@ -19,7 +32,7 @@
                 <input type="password" class="form-control" id="Inputpassword" placeholder="Enter Password" password="password">
             </div>
             </div>              
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button id="smbutton" type="submit" class="btn btn-primary">Submit</button>
         </form>
     </body>
 </html>
